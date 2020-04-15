@@ -1,0 +1,18 @@
+name: URL Shortener
+on:
+  issues:
+    types: [opened, labeled, unlabeled]
+
+jobs:
+  shorten:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 13.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 13.x
+    - run: npm ci
+    - uses: ./
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
